@@ -1,7 +1,5 @@
 $('#btn-sup-update').css('display', 'none');
 
-loadAllSupplier();
-setSupplierCode();
 
 /*save supplier*/
 
@@ -198,7 +196,9 @@ function setSupplierCode() {
 /*clear supplier fields*/
 
 function clearSupplierFields() {
+
     $('#txt-sup-code').val('');
+    setSupplierCode();
     $('#txt-sup-name').val('');
     $('#txt-sup-category').val('');
     $('#txt-sup-building-no').val('');
@@ -246,4 +246,21 @@ function loadAllSupplier() {
             }
         }
     });
+}
+
+function setSupplierCount() {
+    $.ajax(
+        {
+            method: 'GET',
+            url: 'http://localhost:8080/api/v1/supplier/count',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            success: function (counts) {
+                $('#lbl-supplier-total').text(counts.supplierTotal);
+                $('#lbl-supplier-local').text(counts.supplierLocalCount);
+                $('#lbl-supplier-international').text(counts.supplierInternationalCount);
+            }
+        }
+    );
 }
