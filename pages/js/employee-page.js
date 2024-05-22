@@ -1,9 +1,7 @@
-const token = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJzdWIiOiJpcm9zaEBnbWFpbC5jb20iLCJpYXQiOjE3MTYxMTU4NDgsImV4cCI6MTcxNjE1MTg0OH0.Y9PvJOSww2b7hw4Bm8BwsIvuf_KhlSiEmIGA6wtrpl4';
+
 $('#btn-emp-update').css('display', 'none');
 let employeeImageBase64 = ''; // Define a global variable to store the base64 string
 
-loadAllEmployees();
-setEmployeeCounts();
 /*save customer*/
 
 $('#btn-register-employee').click(function () {
@@ -231,7 +229,6 @@ $('#btn-emp-update').click(function () {
         success: function (response) {
             if (response === true) {
                 alert('Employee Update Successfully');
-                loadAllEmployees();
                 navigateToPage('#employee-page');
                 $('#btn-emp-clear').click();
             } else {
@@ -399,6 +396,9 @@ function loadAllEmployees() {
             'Authorization': `Bearer ${token}`
         },
         success: function (employees) {
+
+            console.log(employees);
+
             for (let i = 0; i < employees.length; i++) {
                 let employee = employees[i];
 
