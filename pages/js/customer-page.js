@@ -1,7 +1,6 @@
 $('#btn-cust-update').css('display', 'none');// Define a global variable to store the base64 string
 
-loadAllCustomers();
-setCustomerCode();
+
 /*save customer*/
 $('#btn-cust-save').click(function () {
     let name = $('#txt-cust-name').val();
@@ -280,4 +279,16 @@ function clearCustomerFields() {
     $('#btn-cust-clear').click();
 }
 
+function setCustomerCount(){
 
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:8080/api/v1/customer/count',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        success: function (customerCount) {
+            $('#lbl-cust-count').text(customerCount);
+        }
+    })
+}
