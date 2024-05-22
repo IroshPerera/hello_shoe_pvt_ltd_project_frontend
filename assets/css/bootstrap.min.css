@@ -2268,7 +2268,9 @@ textarea.form-control {
 .form-check-input {
     position: absolute;
     margin-top: .3rem;
-    margin-left: -1.25rem
+    margin-left: -1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .form-check-input:disabled ~ .form-check-label, .form-check-input[disabled] ~ .form-check-label {
@@ -2276,7 +2278,8 @@ textarea.form-control {
 }
 
 .form-check-label {
-    margin-bottom: 0
+    font-size: 1.25rem;
+    margin-left: 0.5rem;
 }
 
 .form-check-inline {
