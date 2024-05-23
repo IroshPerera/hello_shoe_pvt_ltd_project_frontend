@@ -7,6 +7,7 @@ const token = getCookie('token');
 let role = getCookie('role');
 let username = getCookie('username');
 
+
 $('#lbl-user-name').text(username);
 
 handlePageFumctionsUsers();
@@ -23,6 +24,7 @@ navBarActive('#btn-dashboard');
 $('#btn-pos').click(function () {
   $('#app-content').css('display', 'none');
   $('#pos-content').css('display', 'block');
+  hideOtherPages();
   /*change page title*/
     $('#page-title').text('Hello Shoe POS System');
     setOrderID();
@@ -210,6 +212,7 @@ function navigateToPage(page) {
     $('#branch-register-page').css('display', 'none');
     $('#branch-page').css('display', 'none');
     $('#return-page').css('display', 'none');
+    $('#report-page').css('display', 'none');
 
 
     if (page === '#supplier-page') {
@@ -265,6 +268,7 @@ function handlePageFumctionsUsers() {
         $('#btn-employee').css('display', 'none');
         $('#btn-supplier').css('display', 'none');
         $('#btn-branch').css('display', 'none');
+        $('#btn-report').css('display', 'none');
     }
 }
 
@@ -272,4 +276,22 @@ function getCookie(name) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
     if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
+function hideOtherPages() {
+    $('#dashboard-page').css('display', 'none');
+    $('#employee-page').css('display', 'none');
+    $('#employee-register-page').css('display', 'none');
+    $('#customer-page').css('display', 'none');
+    $('#customer-register-page').css('display', 'none');
+    $('#supplier-register-page').css('display', 'none');
+    $('#supplier-page').css('display', 'none');
+    $('#inventory-page').css('display', 'none');
+    $('#inventory-register-page').css('display', 'none');
+    $('#size-page').css('display', 'none');
+    $('#size-register-page').css('display', 'none');
+    $('#branch-register-page').css('display', 'none');
+    $('#branch-page').css('display', 'none');
+    $('#return-page').css('display', 'none');
+    $('#report-page').css('display', 'none');
 }

@@ -72,7 +72,7 @@ function setTopSaleInventoryThisMonth() {
                                                     <img class="card-img-top" src=${item_pic} alt="Card image cap" style="width: 50%;">
                                                 </div>
                                                 <div class="card-body">
-                                                    <h4 class="mb-3 text-successr">${desc}</h4>
+                                                    <h4 class="mb-3 text-success">${desc}</h4>
                                                     <h5>Total Sales: Rs. ${total}</h5>
                                                     <h5>Most Sale Branch: ${branch}</h5>
                                                 </div>
