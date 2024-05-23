@@ -1,6 +1,13 @@
 
-const token = localStorage.getItem('token');
+/*const token = localStorage.getItem('token');
 let role = localStorage.getItem('role');
+let username = localStorage.getItem('username');*/
+
+const token = getCookie('token');
+let role = getCookie('role');
+let username = getCookie('username');
+
+$('#lbl-user-name').text(username);
 
 handlePageFumctionsUsers();
 
@@ -9,8 +16,8 @@ if (!token) {
 
 }
 
-navigateToPage('#report-page');
-navBarActive('#btn-report');
+navigateToPage('#dashboard-page');
+navBarActive('#btn-dashboard');
 
 
 $('#btn-pos').click(function () {
@@ -176,6 +183,13 @@ $('#btn-return').click(function () {
 });
 
 $('#btn-report').click(function () {
+    getEmpDesigCounts();
+    getBranchSalesDetails();
+    getTotalEmpBranch();
+    getTotalESalesBranchThisMonth();
+    setTopSaleInventoryThisMonth();
+    setTopSaleInventoryThisYear();
+
     navBarActive('#btn-report');
     navigateToPage('#report-page');
 
@@ -252,4 +266,10 @@ function handlePageFumctionsUsers() {
         $('#btn-supplier').css('display', 'none');
         $('#btn-branch').css('display', 'none');
     }
+}
+
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
 }

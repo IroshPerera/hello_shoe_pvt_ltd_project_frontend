@@ -349,7 +349,7 @@ $('#btn-place-order').click(function () {
     let total_price = parseFloat($('#txt-order-total').text().replace(/[^\d.]/g, ''));
     let purchase_date = new Date();
     let payment_method = $('#btn-order-cash').hasClass('selected') ? 'Cash' : 'Card';
-    let cashier_name = 'John Doe';
+    let cashier_name = username;
     let customer_code = customerDetails.customer_code;
     if (customer_code === '' || customer_code === undefined || customer_code === null) {
         customer_code = 'C000';

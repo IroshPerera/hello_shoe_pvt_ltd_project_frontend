@@ -24,19 +24,33 @@ $('#btn-user-login').click(function (event) {
             const token2 = tokens[1].trim();
 
 
-            localStorage.removeItem('token');
-            localStorage.removeItem('refresh-token');
+            /*localStorage.removeItem('token');
+            localStorage.removeItem('refresh-token');*/
 
-            localStorage.setItem('token', token1);
-            localStorage.setItem('refresh-token', token2);
+            /*   localStorage.setItem('token', token1);
+               localStorage.setItem('refresh-token', token2);*/
+
+            /*set cookies token*/
+
+
+
+            document.cookie = "token=" + token1 + "; path=/";
+
+
             $.ajax({
                 method: 'GET',
                 url: 'http://localhost:8080/api/v1/user/role?email=' + username,
                 success: function (role) {
 
 
-                    localStorage.removeItem('role');
-                    localStorage.setItem('role', role);
+                 /*   localStorage.removeItem('role');
+                    localStorage.removeItem('username');
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('role', role);*/
+
+                    /*set cookies role and username*/
+                    document.cookie = "role=" + role + "; path=/";
+                    document.cookie = "username=" + username + "; path=/";
                     window.location.href = 'pages/main_page.html';
                 }
             });
