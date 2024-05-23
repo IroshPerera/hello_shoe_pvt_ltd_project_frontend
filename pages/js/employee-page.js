@@ -48,53 +48,60 @@ $('#btn-emp-save').click(function () {
     } else {
         role = 1;
     }
-    console.log(join_date);
 
-    let employeeDTO = {
-        profile_pic: profile_pic,
-        name: name,
-        gender: gender,
-        status: status,
-        dob: dob,
-        building_number: build_no,
-        lane: lane,
-        city: city,
-        state: state,
-        postal_code: postal_code,
-        contact: contact,
-        guardian_contact: emergency,
-        guardian_name: guardian,
-        email: email,
-        employee_code: code,
-        designation: designation,
-        branch: {
-            branch_code: branch
-        },
-        joined_date: join_date,
-        role: role
-    };
-    console.log(employeeDTO);
-    $.ajax({
-        url: `http://localhost:8080/api/v1/employee`,
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        },
-        contentType: 'application/json',
-        data: JSON.stringify(employeeDTO),
-        success: function (response) {
-            if (response === true) {
-                alert('Employee Added');
-                loadAllEmployees();
-                setBranches();
-                setEmployeeCode();
-                setDesignations();
-                $('#btn-emp-clear').click();
-            } else {
-                alert('Employee Not Added');
+
+
+        let employeeDTO = {
+            profile_pic: profile_pic,
+            name: name,
+            gender: gender,
+            status: status,
+            dob: dob,
+            building_number: build_no,
+            lane: lane,
+            city: city,
+            state: state,
+            postal_code: postal_code,
+            contact: contact,
+            guardian_contact: emergency,
+            guardian_name: guardian,
+            email: email,
+            employee_code: code,
+            designation: designation,
+            branch: {
+                branch_code: branch
+            },
+            joined_date: join_date,
+            role: role
+        };
+
+
+     let valid =  checkValidity(employeeDTO);
+
+     if (valid) {
+
+        $.ajax({
+            url: `http://localhost:8080/api/v1/employee`,
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            contentType: 'application/json',
+            data: JSON.stringify(employeeDTO),
+            success: function (response) {
+                if (response === true) {
+                    alert('Employee Added');
+                    loadAllEmployees();
+                    setBranches();
+                    setEmployeeCode();
+                    setDesignations();
+                    $('#btn-emp-clear').click();
+                } else {
+                    alert('Employee Not Added');
+                }
             }
-        }
-    });
+        });
+    }
 
 });
 
@@ -467,4 +474,95 @@ function setEmployeeCounts() {
             $('#total-users').text(count.totalUserEmployeeCount);
         }
     });
+}
+
+function checkValidity(employeeDTO) {
+    // Check for required fields
+    if (!employeeDTO.name || employeeDTO.name.trim() === '') {
+        alert('Name is required');
+        return false;
+    }
+    if (employeeDTO.gender !== 0 && employeeDTO.gender !== 1) {
+        alert('Gender is required');
+        return false;
+    }
+    if (!employeeDTO.status || employeeDTO.status.trim() === '') {
+        alert('Status is required');
+        return false;
+    }
+    if (!employeeDTO.dob || employeeDTO.dob.trim() === '') {
+        alert('Date of Birth is required');
+        return false;
+    }
+    if (!employeeDTO.building_number || employeeDTO.building_number.trim() === '') {
+        alert('Building Number is required');
+        return false;
+    }
+    if (!employeeDTO.lane || employeeDTO.lane.trim() === '') {
+        alert('Lane is required');
+        return false;
+    }
+    if (!employeeDTO.city || employeeDTO.city.trim() === '') {
+        alert('City is required');
+        return false;
+    }
+    if (!employeeDTO.state || employeeDTO.state.trim() === '') {
+        alert('State is required');
+        return false;
+    }
+    if (!employeeDTO.postal_code || employeeDTO.postal_code.trim() === '') {
+        alert('Postal Code is required');
+        return false;
+    }
+    if (!employeeDTO.contact || employeeDTO.contact.trim() === '') {
+        alert('Contact Number is required');
+        return false;
+    }
+    if (!employeeDTO.guardian_contact || employeeDTO.guardian_contact.trim() === '') {
+        alert('Emergency Contact is required');
+        return false;
+    }
+    if (!employeeDTO.guardian_name || employeeDTO.guardian_name.trim() === '') {
+        alert('Guardian Name is required');
+        return false;
+    }
+    if (!employeeDTO.email || employeeDTO.email.trim() === '') {
+        alert('Email is required');
+        return false;
+    }
+    if (!employeeDTO.employee_code || employeeDTO.employee_code.trim() === '') {
+        alert('Employee Code is required');
+        return false;
+    }
+    if (!employeeDTO.designation || employeeDTO.designation.trim() === '') {
+        alert('Designation is required');
+        return false;
+    }
+    if (!employeeDTO.branch || !employeeDTO.branch.branch_code || employeeDTO.branch.branch_code.trim() === '') {
+        alert('Branch Code is required');
+        return false;
+    }
+    if (!employeeDTO.joined_date || employeeDTO.joined_date.trim() === '') {
+        alert('Join Date is required');
+        return false;
+    }
+    if (!employeeDTO.role || employeeDTO.role === 'Select role' || employeeDTO.role.trim() === '' || employeeDTO.role === null || employeeDTO.role !== 0 || employeeDTO.role !== 1){
+        alert('Role is required');
+        return false;
+    }
+
+    // Optional: Additional validation checks
+    if (!validateEmail(employeeDTO.email)) {
+        alert('Invalid email format');
+        return false;
+    }
+
+    // All validations passed
+    return true;
+}
+
+function validateEmail(email) {
+    // Simple email validation regex
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(email);
 }
