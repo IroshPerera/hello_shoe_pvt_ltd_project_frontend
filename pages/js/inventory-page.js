@@ -30,18 +30,7 @@ $('#btn-inventory-save').click(function () {
     let occasion = $('#txt-inventory-occasion').val();
     let verities = $('#txt-inventory-verities').val();
 
-    /*   "inventoryDTO": {
-        "item_desc": "Example item description",
-        "item_pic": "",
-        "occasion": "SPORT",
-        "gender": "FEMALE",
-        "verities": "HEEL",
-        "supplier": {
-            "supplier_code": "S001",
-            "supplier_name": "Example Supplier Inc.",
-            "supplier_address": "123 Supplier Street, Supplier City"
-        }
-    }*/
+
 
     let inventoryDTO = {
         item_pic: inventImageBase64,
@@ -55,25 +44,7 @@ $('#btn-inventory-save').click(function () {
         }
     }
 
-    /*sizeInventoryDetailsDTO": [
-        {
-            "id": 1,
-            "size": {
-                "size_code": "SIZE2"
-            },
-            "inventory": {
-                "supplier": {
-                    "supplier_code": "S001"
-                }
-            },
-            "status": "AVAILABLE",
-            "qty": 10,
-            "buying_price": 10.0,
-            "selling_price": 20.0,
-            "expected_profit": 100.0,
-            "profit_margin": 0.5
-        }
-    ]*/
+
 
     let sizeInventoryDetailsDTO = [];
 
@@ -678,7 +649,7 @@ function changeInputFieldsRegister() {
     /*all fields read only*/
     $('#txt-inventory-desc').attr('readonly', false);
     $('#txt-inventory-supplier-name').attr('disabled', false);
-    $('#txt-inventory-supplier-id').attr('readonly', false);
+    $('#txt-inventory-supplafier-id').attr('readonly', false);
     $('#txt-inventory-gender').attr('disabled', false);
     $('#txt-inventory-occasion').attr('disabled', false);
     $('#txt-inventory-verities').attr('disabled', false);
