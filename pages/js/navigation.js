@@ -99,6 +99,7 @@ $('#btn-supplier').click(function () {
 });
 
 $('#btn-register-supplier').click(function () {
+    changeSupplierFiles();
     clearSupplierFields()
     navBarActive('#btn-supplier');
     navigateToPage('#supplier-register-page');
