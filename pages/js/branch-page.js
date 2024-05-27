@@ -19,6 +19,7 @@ $('#btn-branch-save').click(function () {
         contact: contact
     };
 
+    if(checkValidity(branch)){
 
     $.ajax({
         method: 'post',
@@ -35,6 +36,7 @@ $('#btn-branch-save').click(function () {
             setBranchCode();
         }
     });
+    }
 
 });
 
@@ -215,4 +217,42 @@ function loadAllBranches() {
             }
         }
     });
+}
+
+function checkValidity(branch) {
+    const showError = (message) => {
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    };
+
+    if (branch.branch_code === '') {
+        showError('Branch code is required');
+        return;
+    }
+    if (branch.branch_name === '') {
+        showError('Branch name is required');
+        return;
+    }
+    if (branch.branch_manager === '') {
+        showError('Branch manager is required');
+        return;
+    }
+    if (branch.no_of_employee === '') {
+        showError('Number of employees is required');
+        return;
+    }
+    if (branch.address === '') {
+        showError('Address is required');
+        return;
+    }
+    if (branch.contact === '') {
+        showError('Contact is required');
+        return;
+    }
+return true;
 }
