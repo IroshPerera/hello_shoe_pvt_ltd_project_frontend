@@ -227,3 +227,16 @@ $('#btn-return-save').click(function () {
 
     })
 })
+
+function clearReturnFields(){
+    $('#txt-return-order-id').val("");
+    $('#txt-return-reason').val("");
+    $('#lbl-return-order-date').text("-");
+    $('#lbl-return-order-time').text("-");
+    $('#lbl-return-order-total').text("-");
+    $('#lbl-return-cust-contact').text("-");
+    $('#lbl-return-cust-name').text("-");
+    $('#lbl-return-cust-points').text("-");
+    $('#lbl-return-cust-recent').text("-");
+    $('#tbl-return-order-details tbody tr').remove();
+}
