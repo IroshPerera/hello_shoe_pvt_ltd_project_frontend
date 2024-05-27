@@ -181,6 +181,7 @@ $('#btn-branch-home').click(function () {
 });
 
 $('#btn-return').click(function () {
+    clearReturnFields();
     navBarActive('#btn-return');
     navigateToPage('#return-page');
 });
