@@ -301,8 +301,8 @@ $('#tbl-inventory').on('click', '.btn-inventory-update', function () {
 );
 
 $('#btn-inventory-update').click(function () {
-    // let itemCode = $('#txt-item-code').val();
-    // let desc = $('#txt-inventory-desc').val();
+    let itemCode = $('#txt-item-code').val();
+     let desc = $('#txt-inventory-desc').val();
     // let sup_name = $('#txt-inventory-supplier-name').val();
     let sup_id = $('#txt-inventory-supplier-id').val();
     // let gender = $('#txt-inventory-gender').val();
@@ -355,6 +355,12 @@ $('#btn-inventory-update').click(function () {
         }
     ]*/
 
+    let item_dto = {
+            item_code : itemCode,
+            item_pic: inventImageBase64,
+            item_desc: desc,
+    }
+
     let sizeInventoryDetailsDTO = [];
 
     $('#tbl-inventory-details tbody tr').each(function () {
@@ -364,8 +370,8 @@ $('#btn-inventory-update').click(function () {
         let buying_price = $(this).find('td').eq(2).text();
         let selling_price = $(this).find('td').eq(3).text();
         let expected_profit = $(this).find('td').eq(4).text();
-        let profit_margin_percentage = $(this).find('td').eq(5).text();
-        let profit_margin = profit_margin_percentage.substring(0, profit_margin_percentage.length - 1);
+        let profit_margin = $(this).find('td').eq(5).text();
+     /*   let profit_margin = profit_margin_percentage.substring(0, profit_margin_percentage.length - 1);*/
 
 
         let sizeInventoryDetails = {
@@ -397,6 +403,10 @@ $('#btn-inventory-update').click(function () {
     //     sizeInventoryDetailsDTO: sizeInventoryDetailsDTO
     // };
 
+    var formData = new FormData();
+    formData.append('itemDTO', new Blob([JSON.stringify(item_dto)], { type: 'application/json' }));
+    formData.append('sizeInventoryDetailsDTO', new Blob([JSON.stringify(sizeInventoryDetailsDTO)], { type: 'application/json' }));
+
 
     $.ajax({
         method: 'put',
@@ -404,8 +414,9 @@ $('#btn-inventory-update').click(function () {
         headers: {
             'Authorization': `Bearer ${token}`
         },
-        contentType: 'application/json',
-        data: JSON.stringify(sizeInventoryDetailsDTO),
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function (data) {
             alert('Inventory updated successfully');
             clearInventoryFields();
@@ -508,7 +519,7 @@ $('#txt-inventory-selling-price').on('keypress', function (event) {
 
             // Set the values to the respective fields
             $('#txt-inventory-expected-profit').val(expectedProfit.toFixed(2));
-            $('#txt-inventory-profit-margin').val(profitMargin.toFixed(2) + '%');
+            $('#txt-inventory-profit-margin').val(profitMargin.toFixed(2));
         } else {
             // Clear the fields if the inputs are not valid
             document.getElementById('txt_expected_profit').value = '';
@@ -629,10 +640,10 @@ function loadAllInventories() {
                                                     src="../assets/img/edit.png"
                                                     alt="edit"
                                                     style="width: 20px; height: 20px;"/></a>
-                                            <a class="btn btn-danger btn-inventory-delete"><img
+                                            <!--<a class="btn btn-danger btn-inventory-delete"><img
                                                     src="../assets/img/remove.png"
                                                     alt="delete"
-                                                    style="width: 20px; height: 20px;"/></a>
+                                                    style="width: 20px; height: 20px;"/></a>-->
                                         </div>
                                     </td>
                                 </tr> `;
@@ -682,6 +693,13 @@ function changeInputFieldsUpdate() {
     $('#btn-inventory-clear').css('display', 'block');
 
     $('.invent-size-class').css('display', 'block');
+    $('#txt-inventory-desc').attr('readonly', false);
+    $('#txt-inventory-supplier-name').attr('disabled', true);
+    $('#txt-inventory-supplier-id').attr('readonly', true);
+    $('#txt-inventory-gender').attr('disabled', true);
+    $('#txt-inventory-occasion').attr('disabled', true);
+    $('#txt-inventory-verities').attr('disabled', true);
+    $('#item_image').css('display', 'block');
 }
 
 function setInventoryCount() {
