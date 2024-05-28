@@ -31,7 +31,6 @@ $('#btn-inventory-save').click(function () {
     let verities = $('#txt-inventory-verities').val();
 
 
-
     let inventoryDTO = {
         item_pic: inventImageBase64,
         item_desc: desc,
@@ -43,7 +42,6 @@ $('#btn-inventory-save').click(function () {
             name: sup_name
         }
     }
-
 
 
     let sizeInventoryDetailsDTO = [];
@@ -86,21 +84,23 @@ $('#btn-inventory-save').click(function () {
         sizeInventoryDetailsDTO: sizeInventoryDetailsDTO
     };
 
+    if (checkValidity(inventoryDTO)) {
 
-    $.ajax({
-        method: 'post',
-        url: 'http://localhost:8080/api/v1/inventory',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        },
-        contentType: 'application/json',
-        data: JSON.stringify(inventoryDetailsDTO),
-        success: function (data) {
-            alert('Inventory saved successfully');
-            clearInventoryFields();
-            loadAllInventories();
-        }
-    });
+        $.ajax({
+            method: 'post',
+            url: 'http://localhost:8080/api/v1/inventory',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            contentType: 'application/json',
+            data: JSON.stringify(inventoryDetailsDTO),
+            success: function (data) {
+                alert('Inventory saved successfully');
+                clearInventoryFields();
+                loadAllInventories();
+            }
+        });
+    }
 
 });
 
@@ -273,7 +273,7 @@ $('#tbl-inventory').on('click', '.btn-inventory-update', function () {
 
 $('#btn-inventory-update').click(function () {
     let itemCode = $('#txt-item-code').val();
-     let desc = $('#txt-inventory-desc').val();
+    let desc = $('#txt-inventory-desc').val();
     // let sup_name = $('#txt-inventory-supplier-name').val();
     let sup_id = $('#txt-inventory-supplier-id').val();
     // let gender = $('#txt-inventory-gender').val();
@@ -327,9 +327,9 @@ $('#btn-inventory-update').click(function () {
     ]*/
 
     let item_dto = {
-            item_code : itemCode,
-            item_pic: inventImageBase64,
-            item_desc: desc,
+        item_code: itemCode,
+        item_pic: inventImageBase64,
+        item_desc: desc,
     }
 
     let sizeInventoryDetailsDTO = [];
@@ -342,7 +342,7 @@ $('#btn-inventory-update').click(function () {
         let selling_price = $(this).find('td').eq(3).text();
         let expected_profit = $(this).find('td').eq(4).text();
         let profit_margin = $(this).find('td').eq(5).text();
-     /*   let profit_margin = profit_margin_percentage.substring(0, profit_margin_percentage.length - 1);*/
+        /*   let profit_margin = profit_margin_percentage.substring(0, profit_margin_percentage.length - 1);*/
 
 
         let sizeInventoryDetails = {
@@ -375,8 +375,8 @@ $('#btn-inventory-update').click(function () {
     // };
 
     var formData = new FormData();
-    formData.append('itemDTO', new Blob([JSON.stringify(item_dto)], { type: 'application/json' }));
-    formData.append('sizeInventoryDetailsDTO', new Blob([JSON.stringify(sizeInventoryDetailsDTO)], { type: 'application/json' }));
+    formData.append('itemDTO', new Blob([JSON.stringify(item_dto)], {type: 'application/json'}));
+    formData.append('sizeInventoryDetailsDTO', new Blob([JSON.stringify(sizeInventoryDetailsDTO)], {type: 'application/json'}));
 
 
     $.ajax({
@@ -686,4 +686,29 @@ function setInventoryCount() {
             }
         }
     );
+}
+
+function checkValidity(inventory) {
+    const showError = (message) => {
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    };
+
+    if (inventory.item_desc === '') {
+        showError('Item description is required');
+        return false;
+    }
+
+ /*   if (inventory.supplier.name === '') {
+        showError('Supplier name is required');
+        return false;
+    }*/
+
+
+    return true;
 }

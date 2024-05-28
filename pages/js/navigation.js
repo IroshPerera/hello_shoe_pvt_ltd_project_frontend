@@ -186,6 +186,13 @@ $('#btn-return').click(function () {
     navigateToPage('#return-page');
 });
 
+$('#btn-users').click(function () {
+    loadAllUsers();
+    navBarActive('#btn-users');
+    navigateToPage('#users-page');
+
+});
+
 $('#btn-report').click(function () {
     getEmpDesigCounts();
     getBranchSalesDetails();
@@ -215,6 +222,7 @@ function navigateToPage(page) {
     $('#branch-page').css('display', 'none');
     $('#return-page').css('display', 'none');
     $('#report-page').css('display', 'none');
+    $('#orders-page').css('display', 'none');
 
 
     if (page === '#supplier-page') {
@@ -246,6 +254,7 @@ function navBarActive(page) {
     $('#btn-branch').parent().removeClass('active');
     $('#btn-return').parent().removeClass('active');
     $('#btn-report').parent().removeClass('active');
+    $('#btn-orders').parent().removeClass('active');
 
 
     $(page).parent().addClass('active');
@@ -266,11 +275,14 @@ function handlePageFumctionsUsers() {
         $('#btn-size').css('display', 'block');
         $('#btn-branch').css('display', 'block');
         $('#btn-return').css('display', 'block');
+        $('#btn-report').css('display', 'block');
+        $('#btn-orders').css('display', 'block');
     } else {
         $('#btn-employee').css('display', 'none');
         $('#btn-supplier').css('display', 'none');
         $('#btn-branch').css('display', 'none');
         $('#btn-report').css('display', 'none');
+        $('#btn-orders').css('display', 'none');
     }
 }
 
