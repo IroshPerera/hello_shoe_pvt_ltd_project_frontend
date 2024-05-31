@@ -312,6 +312,9 @@ $('#btn-place-order').click(function () {
     if (!validateOrder()) {
         return;
     }
+
+
+
     /*{
         "saleDTO": {
             "order_id": "O001",
@@ -509,7 +512,7 @@ function validateOrder() {
         showError("Select only one payment method");
         return false;
     }
-
+    setOrderID();
     return true;
 }
 

@@ -223,6 +223,7 @@ function navigateToPage(page) {
     $('#return-page').css('display', 'none');
     $('#report-page').css('display', 'none');
     $('#orders-page').css('display', 'none');
+    $('#users-page').css('display', 'none');
 
 
     if (page === '#supplier-page') {
@@ -255,6 +256,7 @@ function navBarActive(page) {
     $('#btn-return').parent().removeClass('active');
     $('#btn-report').parent().removeClass('active');
     $('#btn-orders').parent().removeClass('active');
+    $('#btn-users').parent().removeClass('active');
 
 
     $(page).parent().addClass('active');
@@ -283,6 +285,7 @@ function handlePageFumctionsUsers() {
         $('#btn-branch').css('display', 'none');
         $('#btn-report').css('display', 'none');
         $('#btn-orders').css('display', 'none');
+        $('#btn-users').css('display', 'none');
     }
 }
 
